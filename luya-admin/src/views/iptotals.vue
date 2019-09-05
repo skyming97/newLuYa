@@ -122,7 +122,7 @@ export default {
     handleCurrentChange(val) {
       // 分页
       this.currentPage = val;
-      let data = { currentPage: val, pageSize: this.pageSize };
+      let data = { currentPage: val, pageSize: this.pageSize, time: this.day };
 
       // 请求分页数据
       Dtotalip(data).then(res => {

@@ -90,6 +90,10 @@
     "htmltowxml": {
       "version": "1.4.0",
       "provider": "wxa51b9c855ae38f3c"
+    },
+    "tencentvideo": {
+      "version": "1.3.3",
+      "provider": "wxa75efa648b60994b"
     }
   },
   "sitemapLocation": "sitemap.json"

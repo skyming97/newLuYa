@@ -1,16 +1,20 @@
-let {getNextMenuData} = require('../../api/req');
+let {
+  getNextMenuData
+} = require('../../api/req');
 const app = getApp();
 Page({
   data: {
-    newslist:[],
+    newslist: [],
     Img: [],
     pagedata: true,
-    currentPage:1,//分页页码  
-    id:'',//栏目id  
+    currentPage: 1, //分页页码  
+    id: '', //栏目id  
   },
-  onLoad(options){
-    this.setData({id:options.id})
-    if (options.id == '2019072516364135790'){
+  onLoad(options) {
+    this.setData({
+      id: options.id
+    })
+    if (options.id == '2019072516364135790') {
       wx.setNavigationBarTitle({
         title: '新品'
       })
@@ -27,15 +31,21 @@ Page({
     }
     this.getList()
   },
-  onShow(){
-    this.setData({ texTab: 0 })
+  onShow() {
+    this.setData({
+      texTab: 0
+    })
   },
-  getList(){
-    let data = { currentPage: 1, pageSize: 10,id:this.data.id
+  getList() {
+    let data = {
+      currentPage: 1,
+      pageSize: 10,
+      id: this.data.id
     };
     getNextMenuData(data).then(res => {
       let data = res.data;
       let bool = data.currentPage * 10 < res.data.totalNum ? true : false;
+      console.log(bool)
       this.setData({
         newslist: data.items,
         pagedata: bool,
@@ -46,7 +56,9 @@ Page({
   godetails(e) {
     let id = e.detail;
     app.globalData.titleid = id;
-    wx.navigateTo({ url: '../../pages/details/details?id=' + id, });
+    wx.navigateTo({
+      url: '../../pages/details/details?id=' + id,
+    });
   },
   //切换中间的tab 加载子分类
   texbarTap(e) {
@@ -66,7 +78,11 @@ Page({
       cid: id,
       newslist: [],
     });
-    let data = { currentPage: 1, pageSize: 10, id: id }
+    let data = {
+      currentPage: 1,
+      pageSize: 10,
+      id: id
+    }
     getNextMenuData(data).then(res => {
       let data = res.data;
       let bool = data.currentPage * 10 < data.totalNum ? true : false;
@@ -76,18 +92,25 @@ Page({
       })
     })
   },
-  onReachBottom(){
-    if (this.data.pagedata){
-      let page = this.currentPage+1;
-      let data = {currentPage:page,pageSize:10,id:this.data.id};
+  onReachBottom() {
+    if (this.data.pagedata) {
+      console.log('进入到onReach')
+      console.log(this.data.currentPage)
+      let page = this.data.currentPage + 1;
+      let data = {
+        currentPage: page,
+        pageSize: 10,
+        id: this.data.id
+      };
       let list = this.data.newslist;
-      getNextMenuData(data).then(res=>{
-        let bool = res.data.currentPage*10 < res.data.totalNum ?  true : false;
+      getNextMenuData(data).then(res => {
+        console.log(res)
+        let bool = res.data.currentPage * 10 < res.data.totalNum ? true : false;
         list.push.apply(list, res.data.items);
         this.setData({
-          list:list,
-          pagedata:bool,
-          currentPage:page,
+          list: list,
+          pagedata: bool,
+          currentPage: page,
         })
       })
     }

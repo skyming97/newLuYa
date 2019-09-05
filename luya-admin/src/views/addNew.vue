@@ -157,9 +157,9 @@ export default {
   methods: {
     //图片上传组件化传参
     onEditorChange({ editor, html, text }) {
-      html = html.replace(new RegExp(/iframe/g), "video");
+      // html = html.replace(new RegExp(/iframe/g), "video");
       console.log(html);
-      this.content = html;
+      // this.content = html;
     },
     //三级联动数据请求
     getcoluml() {

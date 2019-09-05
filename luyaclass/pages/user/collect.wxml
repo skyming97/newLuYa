@@ -10,7 +10,7 @@
           <text>{{item.time}}</text>
         </view>
       </view>
-      <image src="{{item.coverImg}}" class="article-item-right" mode="aspectFit" />
+      <image src="{{item.coverImg}}?x-oss-process=image/resize,p_60" class="article-item-right" mode="aspectFit" />
     </view>
   </view>
  <noData len="{{list}}"><view>暂无收藏</view></noData>

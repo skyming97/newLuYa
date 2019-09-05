@@ -2,6 +2,7 @@
   "usingComponents": {
     "BotTip":"../../component/BotTip/BotTip",
     "htmltowxml": "plugin://htmltowxml/view",
+    "txv-video": "plugin://tencentvideo/video",
     "knoData": "../../component/noData/noData"
   },
   "navigationBarTitleText": "文章详情"

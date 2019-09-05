@@ -2,7 +2,6 @@
 
 App({
   onLaunch() {
-    console.log(this)
     // this.getUpDateNew()
     this.is_update()
     this.checkMobiel();
@@ -66,19 +65,14 @@ App({
   is_update() {
     // 更新管理API无法使用
     if (!wx.canIUse('getUpdateManager')) return
-    console.log('已经进入更新函数')
     // 获取微信版本
     const updateManager = wx.getUpdateManager()
     // 检查新版本
     updateManager.onCheckForUpdate(function(res) {
       // 请求完新版本信息的回调
-      console.log(res.hasUpdate)
-      console.log(res)
     })
     // 检测是否微信更新成功
-    console.log(updateManager)
     updateManager.onUpdateReady(function() {
-      console.log('准备开始更新')
       wx.showToast({
         title: "新版本已经准备好，即将重启应用",
         icon: 'none'

@@ -353,6 +353,7 @@ Page({
   },
   //预览图片
   imgPreview(e) {
+    console.log(1111)
     let imgs = e.currentTarget.dataset.list;
     let src = e.currentTarget.dataset.src;
     wx.previewImage({

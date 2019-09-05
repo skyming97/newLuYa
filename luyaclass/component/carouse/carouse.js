@@ -11,7 +11,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    swiperCurrent:0
+    swiperCurrent:0,
+    // 提高加载速度
+    upLoadRate: '?x-oss-process=image/resize,p_80'
   },
 
   /**

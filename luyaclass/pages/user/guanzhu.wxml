@@ -10,7 +10,7 @@
 </view>
 <view class="attention" hidden="{{currentTab!==0}}">
   <view class="attention-item" wx:if="{{item.status!=0}}" wx:for="{{guanzhuList}}" wx:key="key" catchtap="gotitlelist" data-uid="{{item.id}}">
-    <image class="attention-item-headimg" src="{{item.headImg}}" />
+    <image class="attention-item-headimg" src="{{item.headImg}}?x-oss-process=image/resize,p_60" />
     <view class="attention-item-right">
       <text>{{item.nickName}}</text>
       <view class="attention-status" catchtap='calloff' data-id='{{item.fid}}' data-inx="{{index}}">已关注</view>

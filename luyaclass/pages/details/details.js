@@ -13,6 +13,8 @@ let {
 const app = getApp()
 Page({
   data: {
+    curContentId: '', // 当前文章id，用来判断是否点击的cotentId和这个Id是一个
+    tencentVid: '',
     videoUrl: '', // 视频解码后的地址
     status: 0, //关注状态
     articleDetail: {}, //文章
@@ -95,6 +97,7 @@ Page({
   },
 
   onShow() {
+    console.log('onSHow')
     let id = app.globalData.titleid;
     let pushId = app.globalData.pushId;
     this.setData({
@@ -120,7 +123,43 @@ Page({
     }
     // 获取文章详情
     getArticleDetail(data).then(res => {
+
       console.log(res)
+      let str = res.data.data.userContent.content
+      var newStr = str
+      console.log('*********为修改的str***********')
+      console.log(newStr)
+      console.log('*********为修改的str***********')
+
+
+      // 存在视频地址则进行vid提取
+      if (newStr.indexOf(".html") > 0 && newStr.indexOf("v.qq.com") > 0) {
+        // 提取 标签 中的 腾讯视频vid
+        let tStr = 'https://v.qq.com/x/cover/gb83gpv24sgy843/p00145n6idw.html'
+        let regVid = /\/(\w+?).html/g
+        let result = regVid.exec(str)
+        let vid = RegExp.$1
+        this.setData({
+          tencentVid: vid
+        })
+      }
+
+      // 过滤掉视频标签
+      if (newStr.indexOf("<iframe") > 0) {
+        let tarStr = newStr.substring(newStr.indexOf("<iframe"), newStr.indexOf("</iframe>") + 9)
+        newStr = newStr.replace(tarStr, '')
+        console.log(newStr)
+      }
+
+      // 对详情的图片（请求到的富文本标签）进行降低分辨率处理
+      let reg = new RegExp(/[^>]*src=['"]([^'"]+)[^>]*>/g)
+
+      newStr = newStr.replace(reg, function(match, capture) {
+        if (capture.indexOf('platform.pengyou66.com') > 0)
+          return '<img src="' + capture + '?x-oss-process=image/resize,p_60">'
+        else
+          return '<img src="' + capture + '">'
+      })
 
       if (res.data == 104) {
         wx.showToast({
@@ -136,14 +175,16 @@ Page({
       }
       let bool = res.data.currentPage * 10 < res.data.totalNum ? true : false;
       this.setData({
+        curContentId: res.data.data.userContent.contentId,
         status: res.data.data.isAttention,
         articleDetail: res.data.data.userContent,
         comment: res.data.items,
         commentNum: res.data.totalNum,
         havedata: bool,
-        content: res.data.data.userContent.content,
+        content: newStr,
       })
     })
+
     wx.getSystemInfo({
       success: res => {
         // consol e.log(res)
@@ -156,6 +197,7 @@ Page({
     // 调用视频地址解析方法
     // console.log(this.getVideoInfo('https://v.qq.com/x/cover/bzfkv5se8qaqel2.html'))
   },
+
   onHide() {
     this.setData({
       havacontent: true

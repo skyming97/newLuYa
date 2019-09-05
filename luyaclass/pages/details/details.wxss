@@ -71,7 +71,7 @@
 .noData view{ font-size: 24rpx; color:#888;margin-top: 40rpx;}
 
 /* 详情 视频播放 */
-.ql-video {
-  width: 100%;
+.txv-video {
+  margin: 0 0 10rpx 0;
 }
 

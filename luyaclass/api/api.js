@@ -1,6 +1,6 @@
 // const href = "http://192.168.3.192:8080"; //本地地址
-// const href = 'https://luyabang.com/lyb'//线上地址
-const href = "http://192.168.3.191:8080"; //本地地址
+const href = 'https://luyabang.com/lyb'//线上地址
+// const href = "http://192.168.3.191:8080"; //本地地址 http://shp.qpic.cn/qqvideo/0/z089430uluv/0  http://shp.qpic.cn/qqvideo/0/17844/0
 
 module.exports = {
   href: href,

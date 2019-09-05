@@ -77,8 +77,7 @@ const handlers = {
             if (res.status == 200) {
               // 后面的参数的作用--提高图片加载速度 数字越大图片分辨率越高，加载速度相对慢
               let imgurl = 'http://platform.pengyou66.com/eshop/goods/' + str + data.expire + "?x-oss-process=image/resize,p_50";
-              // 将图片保存到本地缓存
-              window.localStorage.setItem("imgUrl", imgurl)
+
               let length = self.quill.getSelection(true).index;
               self.quill.insertEmbed(length, 'image', imgurl)
               self.quill.setSelection(length + 1)

@@ -11,8 +11,6 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-    console.log('-------')
-    console.log(options.id)
     if (options.id) {
       // this.setdata({ id: options.contentId})
       // app.globalData.titleid = this.data.id
@@ -24,7 +22,6 @@ Page({
       }, 1000)
 
     } else {
-      console.log('redirect to index!!!')
       setTimeout(() => {
         wx.switchTab({
           url: "../index/index"

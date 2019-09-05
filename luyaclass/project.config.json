@@ -145,6 +145,12 @@
 					"pathName": "pages/class/class",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "文章详情页",
+					"pathName": "pages/details/details",
+					"scene": null
 				}
 			]
 		}

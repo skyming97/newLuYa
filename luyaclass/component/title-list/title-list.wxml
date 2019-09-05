@@ -12,6 +12,6 @@
           <!-- <text>{{item.createTime}}</text> -->
         </view>
       </view>
-      <image src="{{item.coverImg}}" class="article-item-right" mode="aspectFit" />
+      <image src="{{item.coverImg}}{{upLoadRate}}" class="article-item-right" mode="aspectFit" />
     </view>
   </view>
