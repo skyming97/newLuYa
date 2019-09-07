@@ -337,20 +337,17 @@ Page({
     this.dynamiclistGet()
 
   },
+  
   //预览图片
   imgPreview(e) {
     let imgs = e.currentTarget.dataset.list;
-    console.log(imgs)
-    // console.log(imgs)
     let src = e.currentTarget.dataset.src.split("?")[0];
-    console.log(e.currentTarget.dataset.src)
-    // console.log(src)
     wx.previewImage({
       current: src,
       urls: imgs,
     });
-
   },
+
   //去动态详情页
   godetail(e) {
     console.log(e.currentTarget.dataset.time)

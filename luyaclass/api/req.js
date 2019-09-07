@@ -30,6 +30,7 @@ export function getFromWxData() {
     })
   })
 }
+
 //登录服务器
 export function Login(wxData) {
   let cdata = {
@@ -52,6 +53,7 @@ export function Login(wxData) {
     })
   })
 }
+
 //注册
 export function Regist(data) {
   return ajax(api.regist, data, 'post')

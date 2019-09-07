@@ -67,16 +67,10 @@
           </el-col>
         </el-row>
         <el-row class="searchBtn">
-            <span class="label">大咖名：</span>
-            <el-input v-model="name" size="mini" placeholder="输入大咖名" class="input-width" clearable></el-input>
-            <span class="label">文章标题：</span>
-            <el-input
-              v-model="title"
-              size="mini"
-              placeholder="输入文章标题"
-              class="input-width"
-              clearable
-            ></el-input>
+          <span class="label">大咖名：</span>
+          <el-input v-model="name" size="mini" placeholder="输入大咖名" class="input-width" clearable></el-input>
+          <span class="label">文章标题：</span>
+          <el-input v-model="title" size="mini" placeholder="输入文章标题" class="input-width" clearable></el-input>
           <el-button type="primary" size="mini" @click="submitForm()">查询</el-button>
           <el-button type="success" size="small" @click="Empty()">清空</el-button>
         </el-row>
@@ -209,6 +203,7 @@
                 :pageSize="pageSize"
                 :total="total"
                 align="center"
+                :current-page="currentPage"
               ></el-pagination>
             </div>
           </el-col>
@@ -303,7 +298,9 @@ export default {
   created() {
     let data = JSON.parse(getCookie("infodata"));
     this.roleId = data.roleId;
-    this.currentPage =
+    console.log(this.$route.query.currentPage);
+
+    this.currentPage =  
       this.$route.query.currentPage == undefined
         ? 1
         : parseInt(this.$route.query.currentPage);
@@ -348,6 +345,8 @@ export default {
     },
     // 文章列表
     getContentList() {
+      console.log("我是getcontentList方法");
+      console.log(this.currentPage);
       let data = { currentPage: this.currentPage, pageSize: 10 };
       contentList(data).then(res => {
         this.tableData = res.data.items;

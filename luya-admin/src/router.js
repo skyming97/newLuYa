@@ -9,7 +9,7 @@ import { getCookie } from '@/api/axios';
 import { Message } from 'element-ui'
 
 NProgress.inc(0.2)
-NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
+NProgress.configure({ easing: 'ease', speed: 800, showSpinner: true })
 
 Vue.use(BaiduMap, { ak: 'PQEDnbGU7Z2uOiSFG4MQ14yVDKkY9AEZ' })
 Vue.use(Router)

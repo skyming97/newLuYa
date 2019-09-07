@@ -13,7 +13,6 @@ let {
 const app = getApp()
 Page({
   data: {
-    curContentId: '', // 当前文章id，用来判断是否点击的cotentId和这个Id是一个
     tencentVid: '',
     videoUrl: '', // 视频解码后的地址
     status: 0, //关注状态
@@ -97,7 +96,6 @@ Page({
   },
 
   onShow() {
-    console.log('onSHow')
     let id = app.globalData.titleid;
     let pushId = app.globalData.pushId;
     this.setData({
@@ -124,31 +122,34 @@ Page({
     // 获取文章详情
     getArticleDetail(data).then(res => {
 
-      console.log(res)
       let str = res.data.data.userContent.content
       var newStr = str
-      console.log('*********为修改的str***********')
-      console.log(newStr)
-      console.log('*********为修改的str***********')
 
-
-      // 存在视频地址则进行vid提取
+      // 如果存在视频地址则进行vid提取 
       if (newStr.indexOf(".html") > 0 && newStr.indexOf("v.qq.com") > 0) {
-        // 提取 标签 中的 腾讯视频vid
-        let tStr = 'https://v.qq.com/x/cover/gb83gpv24sgy843/p00145n6idw.html'
-        let regVid = /\/(\w+?).html/g
-        let result = regVid.exec(str)
-        let vid = RegExp.$1
-        this.setData({
-          tencentVid: vid
-        })
+        // 如果是iframe标签的形式
+        if (newStr.indexOf("vid=") > 0) {
+          let reg = /vid=(\w+)/
+          reg.exec(newStr)
+          this.setData({
+            tencentVid: RegExp.$1
+          })
+        } else {
+          // 提取 标签 中的 腾讯视频vid
+          let regVid = /\/(\w+?).html/g
+          let result = regVid.exec(str)
+          let vid = RegExp.$1
+          this.setData({
+            tencentVid: vid
+          })
+
+        }
       }
 
       // 过滤掉视频标签
       if (newStr.indexOf("<iframe") > 0) {
         let tarStr = newStr.substring(newStr.indexOf("<iframe"), newStr.indexOf("</iframe>") + 9)
         newStr = newStr.replace(tarStr, '')
-        console.log(newStr)
       }
 
       // 对详情的图片（请求到的富文本标签）进行降低分辨率处理
@@ -175,7 +176,6 @@ Page({
       }
       let bool = res.data.currentPage * 10 < res.data.totalNum ? true : false;
       this.setData({
-        curContentId: res.data.data.userContent.contentId,
         status: res.data.data.isAttention,
         articleDetail: res.data.data.userContent,
         comment: res.data.items,
@@ -209,11 +209,8 @@ Page({
    * 视频地址解析转码函数
    */
   getVideoInfo(video) {
-    console.log('video-----')
-    console.log(video)
     if (!video) return
     var vid = video.substring(video.lastIndexOf('/') + 1, video.lastIndexOf('html') - 1);
-    console.log(vid)
     vid = 'x00323v4nfr'
 
     var that = this;
@@ -225,11 +222,7 @@ Page({
         var dataJson = res.data.replace(/QZOutputJson=/, '') + 'qwe'
         // 去掉string json 后的；分号
         dataJson = dataJson.substring(0, dataJson.lastIndexOf(';'))
-        console.log('dataJson---')
-        console.log(dataJson)
         var data = JSON.parse(dataJson);
-        console.log('data---')
-        console.log(data)
         var fileName = data['vl']['vi'][0]['fn'];
         var fvkey = data['vl']['vi'][0]['fvkey'];
         var host = data['vl']['vi'][0]['ul']['ui'][2]['url']
@@ -245,6 +238,7 @@ Page({
   onUnload() {
     app.globalData.pushId = "";
   },
+
   //举报
   Report(e) {
     wx.showActionSheet({
@@ -303,12 +297,14 @@ Page({
       },
     });
   },
+
   //绑定文本输入内容
   CommentText(e) {
     this.setData({
       CommentText: e.detail.value,
     })
   },
+
   //发送评论
   Comment() {
     let data = {
@@ -350,12 +346,14 @@ Page({
       })
     })
   },
+
   //绑定回复输入内容
   ReplyText(e) {
     this.setData({
       replyText: e.detail.value,
     })
   },
+
   //发送回复
   Reply() {
     let nbl = this.data.keybl == false ? true : false;
@@ -388,6 +386,7 @@ Page({
       })
     })
   },
+
   //打开回复输入框
   changeReplyStatus(e) {
     let nbl = this.data.keybl == false ? true : false;
@@ -397,6 +396,7 @@ Page({
       keybl: nbl
     })
   },
+
   //关注
   changeAttentionStatus() {
     let num = this.data.status == 0 ? 1 : 0;
@@ -406,6 +406,7 @@ Page({
       })
     })
   },
+
   //点赞
   Praise(e) {
     let index = e.currentTarget.dataset.ind;
@@ -443,6 +444,7 @@ Page({
       })
     }
   },
+
   //文章不喜欢
   noLike(e) {
     let id = this.data.articleDetail.contentId;
@@ -468,13 +470,13 @@ Page({
       }
     })
   },
+
   //上拉加载更多
   getmore() {
     if (this.data.havedata) {
       let page = this.data.currentPage + 1;
       let list = this.data.comment;
       // let token_ = wx.getStorageSync('token_');
-      // console.log(token_)
       // data.token = token_
       // this.setData({ token: token_ })
       let data = {
@@ -501,19 +503,21 @@ Page({
       console.log('没有更多数据了')
     }
   },
+
   //回首页
   gohome() {
     wx.switchTab({
       url: '../index/index',
     });
   },
+
   //文章分享
   onShareAppMessage(res) {
     let data = this.data.articleDetail;
     // app.globalData.titleid=data.contentId
     // this.setData({contentId:cid})
     if (res.from === 'button' || res.from === 'menu') {
-      console.log(1111)
+      (1111)
       return {
         title: data.title,
         // imageUrl:'http://platform.pengyou66.com/eshop/goods/nanzhoucqvzfj1561707227',
@@ -521,6 +525,7 @@ Page({
       }
     }
   },
+
   //楼层跳跃
   move(e) {
     let mvid = e.currentTarget.dataset.mv;
@@ -529,6 +534,7 @@ Page({
     })
     // this.onLoad()
   },
+
   //收藏文章
   collect() {
     let status = this.data.articleDetail.isCollect == '0' ? '1' : '0';
@@ -540,6 +546,7 @@ Page({
       })
     })
   },
+
   //删除评论
   DeleteComment(e) {
     let userId = wx.getStorageSync('openid');

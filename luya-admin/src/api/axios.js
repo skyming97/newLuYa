@@ -23,6 +23,7 @@ export function setCookie(cname, cvalue, exdays) {
 
 export function getCookie(name) {
     var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    
     if (arr = document.cookie.match(reg))
         return unescape(arr[2]);
     else
@@ -33,9 +34,9 @@ export function delCookie(name) {
     setCookie(name, '', -1);
 }
 // axios.defaults.baseURL = 'http://192.168.3.189:8080';//本地地址
-// axios.defaults.baseURL = 'http://luyabang.com/lyb';//线上地址
+axios.defaults.baseURL = 'http://luyabang.com/lyb';//线上地址
 // axios.defaults.baseURL = 'http://192.168.3.191:8080';//本地地址
-axios.defaults.baseURL = 'http://192.168.3.192:8080';//本地地址
+// axios.defaults.baseURL = 'http://192.168.3.192:8080';//本地地址
 
 
 axios.defaults.timeout = 10000;//请求超时时间

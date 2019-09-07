@@ -2,7 +2,7 @@
   <div>
     <head-top></head-top>
     <el-container>
-      <el-main>
+      <el-header>
         <el-row>
           <el-col class="searchInp">
             <span>用户身份：</span>
@@ -32,6 +32,8 @@
             >导出</el-button>
           </el-col>
         </el-row>
+      </el-header>
+      <el-main>
         <el-row>
           <el-col :span="24">
             <el-table :data="tableData" style="width: 100%" class="box" ref="filterTable">
@@ -471,7 +473,7 @@ export default {
   display: inline-block;
   width: 180px;
 }
-/deep/ .el-table .cell img {
+.el-table /deep/ .cell img {
   border-radius: 50%;
 }
 </style>

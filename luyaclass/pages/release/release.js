@@ -288,6 +288,7 @@ Page({
     }
     return  'lyb'+str.substring(0,expect);
   },
+
   //预览图片
   imgPreview(e){
     let imgs  = e.currentTarget.dataset.list;
@@ -297,6 +298,7 @@ Page({
       urls: imgs,
     });
   },
+
   //长按删除图片
   DeleteImg(e){
     let index = e.currentTarget.dataset.inx;

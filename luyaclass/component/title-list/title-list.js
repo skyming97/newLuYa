@@ -12,7 +12,7 @@ Component({
    */
   data: {
     // 提高加载速度
-    upLoadRate: '?x-oss-process=image/resize,p_60'
+    upLoadRate: '?x-oss-process=image/resize,p_75'
   },
 
   /**

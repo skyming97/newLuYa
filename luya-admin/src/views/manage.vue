@@ -58,7 +58,9 @@ export default {
     axios.post(getpage, qs.stringify(ndata)).then(res => {
       let data = res.data.data;
       
+      // 管理系统 页面列表
       this.pagelist = data;
+      
       let SetRouterlist = [];
       for (let k in data) {
         if (data[k].path != "") {

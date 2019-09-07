@@ -12,8 +12,8 @@ Component({
    */
   data: {
     swiperCurrent:0,
-    // 提高加载速度
-    upLoadRate: '?x-oss-process=image/resize,p_80'
+    // 提高加载速度 ?x-oss-process=image/resize,p_80
+    upLoadRate: ''
   },
 
   /**

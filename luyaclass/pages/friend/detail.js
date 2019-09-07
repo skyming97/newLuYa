@@ -30,7 +30,6 @@ Page({
     url: '',
   },
   onLoad: function(options) {
-    console.log(options)
     // 获取亚路圈传递过来的time
     let timeSjc = options.time
     let userId = wx.getStorageSync('openid');
@@ -54,7 +53,6 @@ Page({
         comment: res.data.items,
         havedata: bool
       })
-      console.log(this.data.dynamic)
     })
     wx.getSystemInfo({
       success: res => {
@@ -353,7 +351,6 @@ Page({
   },
   //预览图片
   imgPreview(e) {
-    console.log(1111)
     let imgs = e.currentTarget.dataset.list;
     let src = e.currentTarget.dataset.src;
     wx.previewImage({

@@ -6,7 +6,7 @@
             <view class="two sort" wx:if="{{index == count+1}}">{{index-count+1}}.</view>
             <view class="three sort" wx:if="{{index == count+2}}">{{index-count+1}}.</view>
             <view class="sort" wx:if="{{index > count+2}}">{{index-count+1}}.</view>
-            <image class="headimg" src="{{item.headImg}}?x-oss-process=image/resize,p_60" />
+            <image class="headimg" src="{{item.headImg}}?x-oss-process=image/resize,p_75" />
             <view class="write">
                 <view class="name">
                     <text>{{item.nickName}}</text>
