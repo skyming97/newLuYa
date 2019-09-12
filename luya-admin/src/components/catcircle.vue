@@ -99,6 +99,7 @@ export default {
                 })
             })
         },
+        // 上传之前
         handPic(file){
             const isJPEG = file.name.split('.')[1] === 'jpeg';
             const isJPG = file.name.split('.')[1] === 'jpg';

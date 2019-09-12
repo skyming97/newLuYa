@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <ul class="list-group">
-                        <li class="list-group-item" v-for="(todo, index) in todoList"><span class="badge" v-if="todo.done == false">未完成</span>
+                        <li class="list-group-item" v-for="(todo, index) in todoList" :key="index"><span class="badge" v-if="todo.done == false">未完成</span>
                             <button class="btn tbn-success btn-xs" @click="deleteTodo(index)">X</button>
                             {{ todo.todo}}
                         </li>

@@ -9,7 +9,8 @@
           text-color="#fff"
           active-text-color="#20a0ff"
           unique-opened
-          router>
+          router
+        >
           <template v-for="(list,v) in pagelist">
             <el-submenu :key="v" :index="list.id" v-if="list.child.length !=0">
               <template slot="title">
@@ -27,7 +28,7 @@
       </el-col>
       <el-col :span="21" style="height: 100%;overflow: auto;min-width:1050px;">
         <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"></router-view>
+          <router-view v-if="$route.meta.keepAlive"></router-view>
         </keep-alive>
         <router-view v-if="!$route.meta.keepAlive"></router-view>
       </el-col>
@@ -35,7 +36,7 @@
   </div>
 </template>
 <script>
-import {getPage} from '@/api/page'
+import { getPage } from "@/api/page";
 import { getpage } from "@/api/api";
 import { setCookie, getCookie } from "@/api/axios";
 import axios from "axios";
@@ -54,24 +55,28 @@ export default {
       this.$router.push("/");
       return;
     }
-    let ndata = { roleId: user.roleId, systemId:getCookie("systemId")};
+    let ndata = { roleId: user.roleId, systemId: getCookie("systemId") };
     axios.post(getpage, qs.stringify(ndata)).then(res => {
       let data = res.data.data;
-      
+
       // 管理系统 页面列表
       this.pagelist = data;
-      
+
       let SetRouterlist = [];
+      // fonin遍历数组
       for (let k in data) {
+        // 将存在的路由路径添加到路由列表
         if (data[k].path != "") {
           SetRouterlist.push(data[k].path);
         }
+        // 如果存在子路由
         if (data[k].child.length > 0) {
           for (let i in data[k].child) {
             SetRouterlist.push(data[k].child[i].path);
           }
         }
       }
+      // 将生成的路由列表保存到cookie
       setCookie("routerList", JSON.stringify(SetRouterlist), 7);
     });
     // reportMsg().then(res=>{
@@ -87,8 +92,25 @@ export default {
 };
 </script>
 <style scoped>
-.home {width: 100%;height: 100%;}
-.title {color: #20a0ff;font-size: 20px;line-height: 60px;text-align: center;box-sizing: border-box;border-bottom: 1px solid #999;}
-.el-menu {width: 100%;}
-.blank {display: block;width: 15px;height: 56px;float: left;}
+.home {
+  width: 100%;
+  height: 100%;
+}
+.title {
+  color: #4b6dff;
+  font-size: 20px;
+  line-height: 60px;
+  text-align: center;
+  box-sizing: border-box;
+  border-bottom: 1px solid #999;
+}
+.el-menu {
+  width: 100%;
+}
+.blank {
+  display: block;
+  width: 15px;
+  height: 56px;
+  float: left;
+}
 </style>

@@ -73,7 +73,7 @@ const router = new Router({
   ]
 })
 router.beforeEach((to, from, next) => {
-  //任何用户都可以的权限
+  //任何用户都可以的权限 从cookie中读取的路由列表
   let routerList = JSON.parse(getCookie('routerList'));
   let list = ['manage', 'editgoodsdetail', 'compileInfo', 'editshop', 'article', 'higherUps', 'dongtai'];
   if (routerList) {
@@ -82,6 +82,7 @@ router.beforeEach((to, from, next) => {
   let path = to.path.substr(1);
   let haveGo = false;
   
+  // 访问的路由存在于路由列表
   for (let k in list) {
     if (path == list[k]) {
       haveGo = true;
